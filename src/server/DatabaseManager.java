@@ -5,9 +5,7 @@
 package server;
 
 import entity.Player;
-import java.io.IOException;
 import java.sql.*;
-
 
 /**
  *
@@ -19,7 +17,7 @@ public class DatabaseManager {
     private static final String URL_USER = "root";
     private static final String URL_PASS = "Anh2210anh";
     
-    private Connection conn;
+    private static Connection conn;
 
     static {
         try {
@@ -34,7 +32,7 @@ public class DatabaseManager {
         conn = DriverManager.getConnection(URL_JDBC, URL_USER, URL_PASS);
     }
     
-    public static Player getPlayer() throws SQLException, IOException {
+    public static Player getPlayer() throws SQLException {
         String sql = "SELECT * FROM tblPlayer WHERE USERNAME = 'a'";
         Player player = new Player();
         PreparedStatement stm = conn.prepareStatement(sql);
@@ -47,7 +45,6 @@ public class DatabaseManager {
         return player;
     }
     public static void main(String[] args) throws SQLException {
-        Player x = getPlayer();
-        System.out.println(x.getUsername());
-    }
+        System.out.println(getPlayer().getUsername());
+    } 
 }

@@ -42,7 +42,7 @@ public class DatabaseManager {
             player = new Player();
             player.setUsername(rs.getString("username"));
         }
-        return player;
+        return player; 
     }
     
     public static void main(String[] args) throws SQLException {

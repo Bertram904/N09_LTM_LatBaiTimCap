@@ -15,7 +15,7 @@ public class DatabaseManager {
 
     private static final String URL_JDBC = "jdbc:mysql://localhost:3306/latbai_db";
     private static final String URL_USER = "root";
-    private static final String URL_PASS = "Anh2210anh";
+    private static final String URL_PASS = "12345";
     
     private static Connection conn;
 
@@ -31,20 +31,27 @@ public class DatabaseManager {
     public DatabaseManager() throws SQLException {
         conn = DriverManager.getConnection(URL_JDBC, URL_USER, URL_PASS);
     }
-    
-    public static Player getPlayer() throws SQLException {
-        String sql = "SELECT * FROM tblPlayer WHERE USERNAME = 'a'";
+
+    public static Player getPlayer(String username) throws SQLException {
+        String sql = "SELECT * FROM tblPlayer WHERE USERNAME = ?";
         Player player = new Player();
         PreparedStatement stm = conn.prepareStatement(sql);
-        ResultSet rs = stm.executeQuery(sql);
+        stm.setString(1, username);
+        ResultSet rs = stm.executeQuery();
         if (rs.next()) {
-                player = new Player();
-                player.setUsername(rs.getString("username"));
+            player = new Player();
+            player.setUsername(rs.getString("username"));
         }
-        player.setUsername(rs.getString("username"));
         return player;
     }
+    
     public static void main(String[] args) throws SQLException {
-        System.out.println(getPlayer().getUsername());
-    } 
+        DatabaseManager db = new DatabaseManager();
+        try {
+            System.out.println("Ket noi db thanh cong");
+            System.out.println(db.getPlayer("kienpt").getUsername());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

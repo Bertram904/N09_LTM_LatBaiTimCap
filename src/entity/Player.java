@@ -11,10 +11,14 @@ package entity;
 public class Player {
     private String username;
     private String password;
+    private int totalScore;
+    private Boolean isOnline;
 
-    public Player(String username, String password) {
+    public Player(String username, String password, int totalScore, Boolean isOnline) {
         this.username = username;
         this.password = password;
+        this.totalScore = totalScore;
+        this.isOnline = isOnline;
     }
 
     public Player() {
@@ -35,6 +39,20 @@ public class Player {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public Boolean getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(Boolean isOnline) {
+        this.isOnline = isOnline;
+    }
 }

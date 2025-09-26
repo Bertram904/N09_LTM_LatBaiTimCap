@@ -1,13 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package client;
 
-/**
- *
- * @author ngotu
- */
-public class ClientRunApp {
-    
+import javafx.application.Application;
+import javafx.stage.*;
+
+public class ClientRunApp extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Client client = new Client(primaryStage);
+        client.showLoginUi();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }

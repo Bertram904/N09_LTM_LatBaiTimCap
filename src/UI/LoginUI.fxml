@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.LoginUIController">
-    <stylesheets>
-        <URL value="@loginui.css"/>
-    </stylesheets>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.controller.LoginController"
+            prefHeight="400.0" prefWidth="600.0"
+            styleClass="root">
+   
+    <children>
+        <VBox alignment="CENTER" spacing="20"
+              maxWidth="400"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              styleClass="login-box">
+
+            <Label text="✨ Welcome Back! ✨" styleClass="title" />
+
+            <TextField fx:id="usernameField" promptText="Username"
+                       styleClass="input-field" />
+            <PasswordField fx:id="passwordField" promptText="Password"
+                           styleClass="input-field" />
+
+            <Button text="Login" styleClass="login-button" />
+
+            <Hyperlink text="Forgot Password?" styleClass="link" />
+        </VBox>
+    </children>
 </AnchorPane>

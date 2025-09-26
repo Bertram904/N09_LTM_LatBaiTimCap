@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/UI/style.css</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/UI/LoginUI.fxml</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/client/controller/LoginController.java</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/UI/MainUI.fxml</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/assets/footballer/Lewandoski.jpg</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/client/ClientRunApp.java</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/client/Client.java</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/client/controller/LobbyController.java</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/UI/GameRoomUI.fxml</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/UI/LobbyUI.fxml</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/nbproject/jfx-impl.xml</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/server/ClientHandler.java</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/server/GameRoom.java</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/server/ServerRun.java</file>
+            <file>file:/F:/N09_LTM_LatBaiTimCap/src/server/DatabaseManager.java</file>
+        </group>
     </open-files>
 </project-private>

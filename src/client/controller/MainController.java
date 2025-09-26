@@ -58,6 +58,11 @@ public class MainController {
     }
     
     @FXML
+    private void onHistory() {
+        System.out.println("On History");
+    }
+    
+    @FXML
     private void onRanking() {
         System.out.println("Lobby show ranking");
     }

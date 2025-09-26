@@ -23,7 +23,7 @@
         </HBox>
     </top>
     
-    <!-- Nội dung chính -->
+    <!-- Home -->
     <center>
         <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;">
 

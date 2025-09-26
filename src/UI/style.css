@@ -39,7 +39,14 @@
         -fx-background-color: #FF69B4;
         -fx-text-fill: black;
     }
-
+    
+    .table-cell {
+        -fx-alignment: CENTER;
+    }
+    
+    .table-row-cell:filled:selected .text {
+        -fx-fill: black; /* chữ giữ màu đen */
+    }
 }
 
 

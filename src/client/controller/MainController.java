@@ -8,11 +8,17 @@ import client.Client;
 import entity.Player;
 import javafx.collections.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color; 
+import javafx.scene.shape.Circle;
 
 /**
  *
@@ -78,16 +84,93 @@ public class MainController {
         colScore.setCellValueFactory(new PropertyValueFactory<>("totalScore"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("isOnline"));
         
-        // map boolean -> text
+        // config render ui for isOnline
         colStatus.setCellFactory(column -> new TableCell<Player, Boolean>() {
+            private final Circle circle = new Circle(6); // r = 6px
             @Override
             protected void updateItem(Boolean online, boolean empty) {
                 super.updateItem(online, empty);
                 if (empty || online == null) {
+                    setGraphic(null);
                     setText(null);
                 } else {
                     setText(online ? "online" : "offline");
+                    circle.setFill(online ? Color.GREENYELLOW : Color.SILVER);
+                    setGraphic(circle);
                 }
+            }
+        });
+        
+        // settings for double-click a row -> open popup
+        tblPlayers.setRowFactory(tv -> {
+            TableRow<Player> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if(!row.isEmpty() && event.getClickCount() == 2) { // double-click
+                    Player clickedPlayer = row.getItem();
+                    // show popup invite for player if player online
+                    showInviteDialog(clickedPlayer);
+                }
+            });
+            return row;
+        });
+    }
+    
+    private void showInviteDialog(Player player) {
+        // Player is online
+        if(player.getIsOnline()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Invite Player");
+            alert.setHeaderText("Do you want to challenge " + player.getUsername() + "?");
+            alert.setContentText("Send invitations now!");
+
+            ButtonType btnOk = new ButtonType("Ok");
+            ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(btnOk, btnCancel);
+
+            // show alert
+            alert.showAndWait().ifPresent(result -> {
+                if(result == btnOk) {
+                    System.out.println("Invited " + player.getUsername());
+                    // TODO gui yeu cau
+                    /* -> server
+                        action: 'invite'
+                        from: A
+                        to: B
+                    */
+                    // mock
+                    showAcceptDialog(player.getUsername());
+                } else {
+                    System.out.println("Cancel invite player");
+                }
+            });
+        }
+    }
+    
+    private void showAcceptDialog(String fromUser) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Accept the invitation");
+        alert.setHeaderText("Would you like to accept the challenge from " + fromUser + "?");
+        alert.setContentText("Accept the invitations now!");
+
+        ButtonType btnOk = new ButtonType("Ok");
+        ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(btnOk, btnCancel);
+
+        // show alert
+        alert.showAndWait().ifPresent(result -> {
+            if(result == btnOk) {
+                System.out.println("join " + fromUser);
+                // TODO gui yeu cau
+                /* -> server
+                    action: 'invite_response'
+                    from: B
+                    to: A
+                    accepted: true/false
+                */
+            } else {
+                System.out.println("Cancel invitation from " + fromUser);
             }
         });
     }

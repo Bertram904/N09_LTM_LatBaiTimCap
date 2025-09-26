@@ -18,7 +18,7 @@ import javafx.scene.*;
 public class Client {
     private final Stage primaryStage;
     
-    private MainController lobbyController;
+    private MainController mainController;
     
     public Client(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -30,8 +30,8 @@ public class Client {
             FXMLLoader loader = new FXMLLoader(fxml);
             Scene scene = new Scene(loader.load()); 
 
-            lobbyController = loader.getController();
-            lobbyController.setClient(this);
+            mainController = loader.getController();
+            mainController.setClient(this);
 
             URL cssLocation = MainController.class.getResource("/UI/style.css");
             if (cssLocation != null) {

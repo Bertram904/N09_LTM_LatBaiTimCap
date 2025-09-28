@@ -20,7 +20,7 @@ public class DatabaseManager {
     private static Connection conn;
 
     static {
-        try {
+        try {   
             Class.forName("com.mysql.cj.jdbc.Driver");
 
         } catch (ClassNotFoundException e) {
@@ -42,7 +42,7 @@ public class DatabaseManager {
             player = new Player();
             player.setUsername(rs.getString("username"));
         }
-        return player;
+        return player; 
     }
     
     public static void main(String[] args) throws SQLException {

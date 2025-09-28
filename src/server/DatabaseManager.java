@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -16,7 +15,7 @@ public class DatabaseManager {
 
     private static final String URL_JDBC = "jdbc:mysql://localhost:3306/latbai_db";
     private static final String URL_USER = "root";
-    private static final String URL_PASS = "Anh2210anh";
+    private static final String URL_PASS = "12345";
     
     private static Connection conn;
 

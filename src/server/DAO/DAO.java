@@ -16,12 +16,12 @@ public class DAO {
 
     private static final String URL_JDBC = "jdbc:mysql://localhost:3306/latbai_db";
     private static final String URL_USER = "root";
-    private static final String URL_PASS = "Anh2210anh";
+    private static final String URL_PASS = "12345";
     
     private static Connection conn;
 
     static {
-        try {
+        try {   
             Class.forName("com.mysql.cj.jdbc.Driver");
 
         } catch (ClassNotFoundException e) {
@@ -43,7 +43,7 @@ public class DAO {
             player = new Player();
             player.setUsername(rs.getString("username"));
         }
-        return player;
+        return player; 
     }
     
     public static void main(String[] args) throws SQLException {

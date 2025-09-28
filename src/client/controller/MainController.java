@@ -139,7 +139,7 @@ public class MainController {
                         to: B
                     */
                     // mock
-                    showAcceptDialog(player.getUsername());
+                    showAcceptDialog("User Admin");
                 } else {
                     System.out.println("Cancel invite player");
                 }

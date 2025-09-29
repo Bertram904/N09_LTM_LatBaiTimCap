@@ -8,26 +8,26 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.util.Pair;
+import server.DAO.DAO;
 
 public class ClientHandler implements Runnable {
 
     private Socket socket;
     private ServerRun server;
-    private DatabaseManager dbManager;
+    private DAO dbManager;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Player player;
     private GameRoom gameRoom;
     private volatile boolean isRunning = true;
 
-    public ClientHandler(Socket socket, ServerRun server, DatabaseManager dbManager) {
+    public ClientHandler(Socket socket, ServerRun server, DAO dbManager) {
         this.socket = socket;
         this.server = server;
         this.dbManager = dbManager;
         try {
-            // Đặt ObjectOutputStream trước ObjectInputStream để tránh deadlock
             out = new ObjectOutputStream(socket.getOutputStream());
-            out.flush(); // Đảm bảo ObjectOutputStream được khởi tạo trước
+            out.flush();
             in = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public class ClientHandler implements Runnable {
         } finally {
             try {
                 if (player != null) {
-                    dbManager.updatePlayerStatus(player.getId(), "offline");
+                    dbManager.updatePlayerStatus(player.getId(), false);
                     server.broadcast(new Message("status_update", player.getUsername() + " đã offline."));
                     server.removeClient(this);
                 }
@@ -89,6 +89,7 @@ public class ClientHandler implements Runnable {
     }
 
     private void handleLogin(Message message) throws IOException, SQLException {
+        System.out.println("Loi Login Client Handler");
         String[] credentials = (String[]) message.getContent();
         String username = credentials[0];
         String password = credentials[1];
@@ -97,11 +98,12 @@ public class ClientHandler implements Runnable {
         Boolean isOffline = pairAuthnticatedUser.getValue();
         if (_player != null && isOffline == true) {
             this.player = _player;
-            dbManager.updatePlayerStatus(player.getId(), "online");
-            player.setIsOnline(true); // Cập nhật trạng thái trong đối tượng user
+            dbManager.updatePlayerStatus(player.getId(), true);
+            player.setIsOnline(true);
             sendMessage(new Message("login_success", player));
             server.broadcast(new Message("status_update", player.getUsername() + " đã online."));
-            server.addClient(player.getId(), this); // Thêm client vào danh sách server
+            server.addClient(player.getId(), this);
+
         } else if (_player != null && isOffline == false) {
             sendMessage(new Message("login_failure", "Tài khoản được đăng nhập ở nơi khác"));
         } else {
@@ -111,13 +113,13 @@ public class ClientHandler implements Runnable {
 
     private void handleLogout() throws IOException, SQLException {
         if (player != null) {
-            dbManager.updatePlayerStatus(player.getId(), "offline");
-            player.setIsOnline(true);
+            dbManager.updatePlayerStatus(player.getId(), false);
+            player.setIsOnline(false);
             server.broadcast(new Message("status_update", player.getUsername() + " đã offline."));
             if (socket != null && !socket.isClosed()) {
                 sendMessage(new Message("logout_success", "Đăng xuất thành công."));
             }
-            isRunning = false; // Dừng vòng lặp
+            isRunning = false;
             server.removeClient(this);
             socket.close();
         }
@@ -140,8 +142,6 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             System.out.println("Lỗi khi gửi tin nhắn tới " + (player != null ? player.getUsername() : "client") + ": "
                     + e.getMessage());
-            // Không gọi lại handleLogout() ở đây để tránh đệ quy
-            // Đánh dấu client là đã ngắt kết nối
             try {
                 socket.close();
             } catch (IOException ex) {

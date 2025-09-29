@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import server.DAO.DAO;
 
 /**
  *
@@ -20,13 +20,13 @@ public class ServerRun {
 
     private static final int PORT = 23456;
     private ServerSocket serverSocket;
-    private DatabaseManager dbManager;
+    private DAO dbManager;
     private ConcurrentHashMap<Integer, ClientHandler> clientMap = new ConcurrentHashMap<>();
 
     public ServerRun() {
         try {
             serverSocket = new ServerSocket(PORT);
-            dbManager = new DatabaseManager();
+            dbManager = new DAO();
             System.out.println("Server started on PORT: " + PORT);
             listenForClients();
         } catch (IOException | SQLException e) {

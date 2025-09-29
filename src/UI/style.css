@@ -1,189 +1,101 @@
-/* Root background */
-.root {
-    -fx-background-color: linear-gradient(to bottom right, #4facfe, #00f2fe);
-    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
-}
+/*
+ * Empty Stylesheet file.
+ */
 
-<<<<<<< HEAD
-.login-box {
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-background-radius: 20;
-    -fx-padding: 30;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 20, 0.5, 0, 8);
-}
-
-.title {
-    -fx-text-fill: #ff69b4;
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-    -fx-font-family: "Comic Sans MS", "Segoe UI", sans-serif;
-}
-
-.input-field {
-    -fx-background-color: #e6e6ff;
-    -fx-background-radius: 10;
-    -fx-padding: 10;
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
-}
-
-.input-field:focused {
-    -fx-border-color: #ff69b4;
-    -fx-border-width: 2;
-    -fx-border-radius: 10;
-}
-
-.login-button {
-    -fx-background-color: #6f00ff;
-    -fx-background-radius: 15;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 30 10 30;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0.3, 0, 4);
-}
-
-.login-button:hover {
-    -fx-background-color: #ff69b4;
-}
-
-.link {
-    -fx-text-fill: #6f00ff;
-    -fx-underline: true;
-    -fx-font-size: 13px;
-}
-
-.link:hover {
-    -fx-text-fill: #ff69b4;
-}
-
-.table-view {
-    -fx-background-color: transparent;
-    -fx-table-cell-border-color: transparent;
-    -fx-padding: 5;
-    -fx-border-insets: 5;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: #6F00FF;
-    -fx-background-radius: 12 12 0 0;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35px;
-    -fx-border-color: transparent;
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header .label {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-}
-
-.table-row-cell:odd {
-    -fx-background-color: #F5F5FF;
-}
-
-.table-row-cell:even {
-    -fx-background-color: white;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #FF69B4;
-    -fx-text-fill: white;
-=======
 .mainFxmlClass {
-  .table-view {
-    -fx-background-color: transparent;
-    -fx-table-cell-border-color: transparent;
-    -fx-padding: 5;
-    -fx-border-insets: 5;
-  }
+    .table-view {
+        -fx-background-color: transparent;
+        -fx-table-cell-border-color: transparent;
+        -fx-padding: 5;
+        -fx-border-insets: 5;
+    }
 
-  .table-view .column-header-background {
-    -fx-background-color: #6f00ff;
-    -fx-background-radius: 12 12 0 0;
-  }
+    .table-view .column-header-background {
+        -fx-background-color: #6F00FF;
+        -fx-background-radius: 12 12 0 0;
+    }
 
-  .table-view .column-header,
-  .table-view .filler {
-    -fx-size: 35px;
-    -fx-border-color: transparent;
-    -fx-background-color: transparent;
-  }
+    .table-view .column-header, .table-view .filler {
+        -fx-size: 35px;
+        -fx-border-color: transparent;
+        -fx-background-color: transparent;
+    }
 
-  .table-view .column-header .label {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-  }
+    .table-view .column-header .label {
+        -fx-text-fill: white;
+        -fx-font-size: 14px;
+        -fx-font-weight: bold;
+    }
 
-  .table-row-cell:odd {
-    -fx-background-color: #f5f5ff;
-  }
+    .table-row-cell:odd {
+        -fx-background-color: #F5F5FF;
+    }
 
-  .table-row-cell:even {
-    -fx-background-color: white;
-  }
+    .table-row-cell:even {
+        -fx-background-color: white;
+    }
 
-  .table-row-cell:hover {
-    -fx-background-color: #ff69b4;
-    -fx-text-fill: black;
-  }
+    .table-row-cell:hover {
+        -fx-background-color: #FF69B4;
+        -fx-text-fill: black;
+    }
 
-  .login-box {
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-background-radius: 20;
-    -fx-padding: 30;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 20, 0.5, 0, 8);
-  }
+    .root {
+        -fx-background-color: linear-gradient(to bottom right, #E6E6FF, indigo);
+    }
 
-  .title {
-    -fx-text-fill: #ff69b4;
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-    -fx-font-family: "Comic Sans MS", "Segoe UI", sans-serif;
-  }
+    .login-box {
+        -fx-background-color: rgba(255, 255, 255, 0.2);
+        -fx-background-radius: 20;
+        -fx-padding: 30;
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 20, 0.5, 0, 8);
+    }
 
-  .input-field {
-    -fx-background-color: #e6e6ff;
-    -fx-background-radius: 10;
-    -fx-padding: 10;
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
-  }
+    .title {
+        -fx-text-fill: #ff69b4;
+        -fx-font-size: 26px;
+        -fx-font-weight: bold;
+        -fx-font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+    }
 
-  .input-field:focused {
-    -fx-border-color: #ff69b4;
-    -fx-border-width: 2;
-    -fx-border-radius: 10;
-  }
+    .input-field {
+        -fx-background-color: #e6e6ff;
+        -fx-background-radius: 10;
+        -fx-padding: 10;
+        -fx-font-size: 14px;
+        -fx-text-fill: #333333;
+    }
 
-  .login-button {
-    -fx-background-color: #6f00ff;
-    -fx-background-radius: 15;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 30 10 30;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0.3, 0, 4);
-  }
+    .input-field:focused {
+        -fx-border-color: #ff69b4;
+        -fx-border-width: 2;
+        -fx-border-radius: 10;
+    }
 
-  .login-button:hover {
-    -fx-background-color: #ff69b4;
-  }
+    .login-button {
+        -fx-background-color: #6f00ff;
+        -fx-background-radius: 15;
+        -fx-text-fill: white;
+        -fx-font-size: 16px;
+        -fx-font-weight: bold;
+        -fx-padding: 10 30 10 30;
+        -fx-cursor: hand;
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0.3, 0, 4);
+    }
 
-  .link {
-    -fx-text-fill: #6f00ff;
-    -fx-underline: true;
-    -fx-font-size: 13px;
-  }
+    .login-button:hover {
+        -fx-background-color: #ff69b4;
+    }
 
-  .link:hover {
-    -fx-text-fill: #ff69b4;
-  }
->>>>>>> fea3a300e322665994532593879ea85ffcd61ebb
+    .link {
+        -fx-text-fill: #6f00ff;
+        -fx-underline: true;
+        -fx-font-size: 13px;
+    }
+
+    .link:hover {
+        -fx-text-fill: #ff69b4;
+    }
+
 }
+

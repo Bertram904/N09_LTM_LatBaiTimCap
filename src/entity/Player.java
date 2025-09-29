@@ -4,11 +4,13 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ngotu
  */
-public class Player {
+public class Player implements Serializable {
 
     private int id;
     private String username;
@@ -16,8 +18,7 @@ public class Player {
     private boolean isOnline;
     private int totalScore;
 
-    public Player(int id, String username, String password, boolean isOnline, int totalScore) {
-        this.id = id;
+    public Player(String username, String password, int totalScore, boolean isOnline) {
         this.username = username;
         this.password = password;
         this.isOnline = isOnline;

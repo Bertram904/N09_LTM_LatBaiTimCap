@@ -3,16 +3,23 @@ package client;
 import javafx.application.Application;
 import javafx.stage.*;
 
+public class ClientRunApp extends Application {
 
-public class ClientRunApp extends Application {   
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Client client = new Client(primaryStage);
-        client.showMainUI();
+
+        try {
+            client.connect("localhost", 23456);
+            client.showLoginUI();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể kết nối đến server!");
+        }
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

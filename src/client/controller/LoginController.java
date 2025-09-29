@@ -1,7 +1,11 @@
 package client.controller;
 
 import client.Client;
+import entity.Message;
 import javafx.fxml.FXML;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -15,14 +19,44 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    public void handleLogin() {
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
+    @FXML
+    private Label statusLabel;
 
-        if ("admin".equals(user) && "123".equals(pass)) {
-            System.out.println("Login successful!");
-        } else {
-            System.out.println("Invalid username or password");
+    @FXML
+    public void handleLogin(ActionEvent event) {
+
+        if (statusLabel != null) {
+            statusLabel.setText("Đang đăng nhập...");
+        }
+
+        String user = usernameField.getText().trim();
+        String pass = passwordField.getText().trim();
+
+        if (user.isEmpty() || pass.isEmpty()) {
+            System.out.println("Loi User");
+            if (statusLabel != null) {
+                statusLabel.setText("Vui lòng nhập đầy đủ thông tin!");
+            }
+            return;
+        }
+
+        if (app == null) {
+            System.out.println("Loi chua ket noi");
+            if (statusLabel != null) {
+                statusLabel.setText("Lỗi: Chưa kết nối!");
+            }
+            return;
+        }
+        try {
+            app.sendMessage(new Message("login", new String[]{user, pass}));
+            if (statusLabel != null) {
+                statusLabel.setText("Đã gửi yêu cầu đăng nhập...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (statusLabel != null) {
+                statusLabel.setText("Lỗi: " + e.getMessage());
+            }
         }
     }
 

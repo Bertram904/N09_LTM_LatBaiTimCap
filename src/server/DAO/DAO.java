@@ -24,7 +24,7 @@ public class DAO {
     private static Connection conn;
 
     static {
-        try {   
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
         } catch (ClassNotFoundException e) {
@@ -46,13 +46,13 @@ public class DAO {
             player = new Player();
             player.setUsername(rs.getString("username"));
         }
-        return player; 
+        return player;
     }
 
-    public void updatePlayerStatus(int playerId, String status) throws SQLException {
-        String query = "UPDATE tblPlayer SET status = ? WHERE id = ?";
+    public void updatePlayerStatus(int playerId, boolean isOnline) throws SQLException {
+        String query = "UPDATE tblPlayer SET isOnline = ? WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, status);
+        stmt.setBoolean(1, isOnline);
         stmt.setInt(2, playerId);
         stmt.executeUpdate();
     }
@@ -65,11 +65,10 @@ public class DAO {
 
         while (rs.next()) {
             players.add(new Player(
-                    rs.getInt("id"),
                     rs.getString("username"),
                     rs.getString("password"),
-                    rs.getBoolean("isOnline"),
-                    rs.getInt("totalScore")
+                    rs.getInt("totalScore"),
+                    rs.getBoolean("isOnline")
             ));
         }
 
@@ -85,11 +84,10 @@ public class DAO {
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             Player authenticatePlayer = new Player(
-                    rs.getInt("id"),
                     rs.getString("username"),
                     rs.getString("password"),
-                    rs.getBoolean("isOnline"),
-                    rs.getInt("totalScore")
+                    rs.getInt("totalScore"),
+                    rs.getBoolean("isOnline")
             );
 
             boolean isOffline = !rs.getBoolean("isOnline");

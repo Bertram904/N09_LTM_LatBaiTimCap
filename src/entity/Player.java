@@ -4,24 +4,36 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ngotu
  */
-public class Player {
+public class Player implements Serializable {
+
+    private int id;
     private String username;
     private String password;
+    private boolean isOnline;
     private int totalScore;
-    private Boolean isOnline;
 
-    public Player(String username, String password, int totalScore, Boolean isOnline) {
+    public Player(String username, String password, int totalScore, boolean isOnline) {
         this.username = username;
         this.password = password;
-        this.totalScore = totalScore;
         this.isOnline = isOnline;
+        this.totalScore = totalScore;
     }
 
     public Player() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -40,6 +52,14 @@ public class Player {
         this.password = password;
     }
 
+    public boolean isIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(boolean isOnline) {
+        this.isOnline = isOnline;
+    }
+
     public int getTotalScore() {
         return totalScore;
     }
@@ -48,11 +68,4 @@ public class Player {
         this.totalScore = totalScore;
     }
 
-    public Boolean getIsOnline() {
-        return isOnline;
-    }
-
-    public void setIsOnline(Boolean isOnline) {
-        this.isOnline = isOnline;
-    }
 }

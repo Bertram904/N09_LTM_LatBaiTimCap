@@ -2,8 +2,6 @@
 # =========================
 # Java / JavaFX project
 # =========================
-<<<<<<< HEAD
-=======
 
 # Compiled class files
 *.class
@@ -67,8 +65,6 @@ target/
 */hs_err_pid*
 oxr-xhcz-krd
 
-
->>>>>>> origin/develop
 
 # Compiled class files
 *.class

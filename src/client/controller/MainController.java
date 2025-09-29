@@ -5,27 +5,25 @@
 package client.controller;
 
 import client.Client;
+import entity.Message;
 import entity.Player;
 import javafx.collections.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color; 
-import javafx.scene.shape.Circle;
+import java.io.*;
+
 
 /**
  *
  * @author ngotu
  */
 public class MainController {
-     private Client app;
+    private Client app;
+    private Player userLogin;
     
     @FXML private Label lblWelcome;
     @FXML private TableView<Player> tblPlayers;
@@ -35,68 +33,73 @@ public class MainController {
     
     private ObservableList<Player> players = FXCollections.observableArrayList();
 
-    public void setClient(Client app) {
+    public void setClient(Client app) throws IOException {
         loadUsers();
         this.app = app;
     }
     
-    private void loadUsers() {
-        System.out.println("Loading users...");
+    private void loadUsers() throws IOException {
+        System.out.println("Loading player...");
         players.clear(); // tránh add trùng khi gọi lại
         players.addAll(
-            new Player("Kien", "1", 12, true),
-            new Player("Tuan Anh", "1", 20, false),
-            new Player("Bao", "1", 8, true),
-            new Player("Dong", "1", 0, true)
-        );
+                new Player("Kien", "1", 12, true),
+                new Player("Tuan Anh", "1", 20, false),
+                new Player("Bao", "1", 8, true),
+                new Player("Dong", "1", 0, true));
         System.out.println("size users " + players.size());
         tblPlayers.setItems(players);
+        
+        try {
+            Message request = new Message("get_players", null);
+            app.sendMessage(request);
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.out.println("Khong call dc server");
+        }
     }
+    
+    
     
     @FXML
     private void onLogout() {
         System.out.println("Lobby Logout");
     }
-    
+
     @FXML
     private void onInvite() {
         System.out.println("Lobby invite");
     }
-    
+
     @FXML
     private void onHistory() {
         System.out.println("On History");
     }
-    
+
     @FXML
     private void onRanking() {
         System.out.println("Lobby show ranking");
     }
-    
+
     @FXML
     private void onRefresh() {
         System.out.println("Lobby refresh");
     }
-    
+
     @FXML
     private void initialize() {
         colName.setCellValueFactory(new PropertyValueFactory<>("username"));
         colScore.setCellValueFactory(new PropertyValueFactory<>("totalScore"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("isOnline"));
-        
-        // config render ui for isOnline
+
+        // map boolean -> text
         colStatus.setCellFactory(column -> new TableCell<Player, Boolean>() {
-            private final Circle circle = new Circle(6); // r = 6px
             @Override
             protected void updateItem(Boolean online, boolean empty) {
                 super.updateItem(online, empty);
                 if (empty || online == null) {
-                    setGraphic(null);
                     setText(null);
                 } else {
                     setText(online ? "online" : "offline");
-                    circle.setFill(online ? Color.GREENYELLOW : Color.SILVER);
-                    setGraphic(circle);
                 }
             }
         });
@@ -139,7 +142,19 @@ public class MainController {
                         to: B
                     */
                     // mock
-                    showAcceptDialog("User Admin");
+                    showAcceptDialog(1); // test mock ui
+                    
+                    // request to server
+                    int fromId = userLogin.getId(); // id of user login 
+                    int toId = player.getId(); // id of player invite
+                    Object[] content = { fromId, toId };
+                    Message request = new Message("invite_player", content);
+//                    try {
+//                        app.sendMessage(request);
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+////                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                 } else {
                     System.out.println("Cancel invite player");
                 }
@@ -147,10 +162,10 @@ public class MainController {
         }
     }
     
-    private void showAcceptDialog(String fromUser) {
+    private void showAcceptDialog(int fromId) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Accept the invitation");
-        alert.setHeaderText("Would you like to accept the challenge from " + fromUser + "?");
+        alert.setHeaderText("Would you like to accept the challenge from " + fromId + "?");
         alert.setContentText("Accept the invitations now!");
 
         ButtonType btnOk = new ButtonType("Ok");
@@ -161,7 +176,7 @@ public class MainController {
         // show alert
         alert.showAndWait().ifPresent(result -> {
             if(result == btnOk) {
-                System.out.println("join " + fromUser);
+                System.out.println("join " + fromId);
                 // TODO gui yeu cau
                 /* -> server
                     action: 'invite_response'
@@ -170,7 +185,7 @@ public class MainController {
                     accepted: true/false
                 */
             } else {
-                System.out.println("Cancel invitation from " + fromUser);
+                System.out.println("Cancel invitation from " + fromId);
             }
         });
     }

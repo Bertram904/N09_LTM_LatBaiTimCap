@@ -47,6 +47,63 @@
     .table-row-cell:filled:selected .text {
         -fx-fill: black; /* chữ giữ màu đen */
     }
-}
 
+    .root {
+        -fx-background-color: linear-gradient(to bottom right, #E6E6FF, indigo);
+    }
+
+    .login-box {
+        -fx-background-color: rgba(255, 255, 255, 0.2);
+        -fx-background-radius: 20;
+        -fx-padding: 30;
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 20, 0.5, 0, 8);
+    }
+
+    .title {
+        -fx-text-fill: #ff69b4;
+        -fx-font-size: 26px;
+        -fx-font-weight: bold;
+        -fx-font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+    }
+
+    .input-field {
+        -fx-background-color: #e6e6ff;
+        -fx-background-radius: 10;
+        -fx-padding: 10;
+        -fx-font-size: 14px;
+        -fx-text-fill: #333333;
+    }
+
+    .input-field:focused {
+        -fx-border-color: #ff69b4;
+        -fx-border-width: 2;
+        -fx-border-radius: 10;
+    }
+
+    .login-button {
+        -fx-background-color: #6f00ff;
+        -fx-background-radius: 15;
+        -fx-text-fill: white;
+        -fx-font-size: 16px;
+        -fx-font-weight: bold;
+        -fx-padding: 10 30 10 30;
+        -fx-cursor: hand;
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0.3, 0, 4);
+    }
+
+    .login-button:hover {
+        -fx-background-color: #ff69b4;
+    }
+
+    .link {
+        -fx-text-fill: #6f00ff;
+        -fx-underline: true;
+        -fx-font-size: 13px;
+    }
+
+    .link:hover {
+        -fx-text-fill: #ff69b4;
+    }
+
+}
 

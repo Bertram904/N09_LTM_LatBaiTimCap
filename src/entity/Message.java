@@ -4,12 +4,13 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
- * @author dbao0
+ * @author ngotu
  */
-public class Message {
-
+public class Message implements Serializable {
     private String type;
     private Object content;
 
@@ -22,16 +23,7 @@ public class Message {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public Object getContent() {
         return content;
     }
-
-    public void setContent(Object content) {
-        this.content = content;
-    }
-
 }

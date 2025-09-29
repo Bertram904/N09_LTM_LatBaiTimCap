@@ -10,6 +10,6 @@ import java.io.Serializable;
  *
  * @author ngotu
  */
-public class Match implements Serializable {
+public class MatchDetail implements Serializable {
     
 }

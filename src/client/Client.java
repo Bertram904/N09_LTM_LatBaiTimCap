@@ -4,8 +4,7 @@
  */
 package client;
 
-import client.controller.LobbyController;
-import client.controller.LoginController;
+import client.controller.MainController;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
@@ -17,26 +16,24 @@ import javafx.scene.*;
  * @author ngotu
  */
 public class Client {
+    private final Stage primaryStage;
 
-    private Stage primaryStage;
-    private LoginController loginController;
-
-    private LobbyController lobbyController;
+    private MainController mainController;
 
     public Client(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
-    public void showLoginUi() {
+    public void showMainUI() {
         try {
-            URL fxml = getClass().getResource("/UI/LoginUI.fxml");
+            URL fxml = getClass().getResource("/UI/MainUI.fxml");
             FXMLLoader loader = new FXMLLoader(fxml);
             Scene scene = new Scene(loader.load());
 
-            loginController = loader.getController();
-            loginController.setClient(this);
+            mainController = loader.getController();
+            mainController.setClient(this);
 
-            URL cssLocation = LoginController.class.getResource("/UI/style.css");
+            URL cssLocation = MainController.class.getResource("/UI/style.css");
             if (cssLocation != null) {
                 scene.getStylesheets().add(cssLocation.toExternalForm());
                 System.out.println("CSS file loaded: " + cssLocation.toExternalForm());
@@ -44,7 +41,7 @@ public class Client {
                 System.err.println("Cannot find CSS file: style.css");
             }
 
-            primaryStage.setTitle("Login");
+            primaryStage.setTitle("Main UI");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
@@ -52,32 +49,7 @@ public class Client {
         }
     }
 
-    public void showLobbyUI() {
-        try {
-            URL fxml = getClass().getResource("/UI/LobbyUI.fxml");
-            FXMLLoader loader = new FXMLLoader(fxml);
-            Scene scene = new Scene(loader.load());
-
-            lobbyController = loader.getController();
-            lobbyController.setClient(this);
-
-            URL cssLocation = LobbyController.class.getResource("/UI/style.css");
-            if (cssLocation != null) {
-                scene.getStylesheets().add(cssLocation.toExternalForm());
-                System.out.println("CSS file loaded: " + cssLocation.toExternalForm());
-            } else {
-                System.err.println("Cannot find CSS file: style.css");
-            }
-
-            primaryStage.setTitle("Lobby");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+        javafx.application.Application.launch(ClientRunApp.class, args);
     }
-
-//    public static void main(String[] args) {
-//        javafx.application.Application.launch(ClientRunApp.class, args);
-//    }
 }

@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.stage.*;
 
 
-public class ClientRunApp extends Application {
+public class ClientRunApp extends Application {   
     @Override
     public void start(Stage primaryStage) throws Exception {
         Client client = new Client(primaryStage);
@@ -14,5 +14,4 @@ public class ClientRunApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

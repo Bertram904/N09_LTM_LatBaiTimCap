@@ -8,11 +8,17 @@ import java.net.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 
+
+/**
+ *
+ * @author ngotu
+ */
 public class Client {
     private final Stage primaryStage;
     
     private MainController mainController;
     private RankingController rankingController;
+
     
     public Client(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -30,6 +36,9 @@ public class Client {
             URL cssLocation = MainController.class.getResource("/UI/style.css");
             if (cssLocation != null) {
                 scene.getStylesheets().add(cssLocation.toExternalForm());
+                System.out.println("CSS file loaded: " + cssLocation.toExternalForm());
+            } else {
+                System.err.println("Cannot find CSS file: style.css");
             }
 
             primaryStage.setTitle("Main UI");
@@ -39,6 +48,7 @@ public class Client {
             e.printStackTrace(); 
         }
     }
+
 
     public void showRankingUI() {
         try {
@@ -87,8 +97,6 @@ public class Client {
             e.printStackTrace();
         }
     }
-
-
 
     public static void main(String[] args) {
         javafx.application.Application.launch(ClientRunApp.class, args);

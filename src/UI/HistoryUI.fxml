@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.controller.HistoryController"
+            prefWidth="800" prefHeight="500"
+            style="-fx-background-color: linear-gradient(to bottom right, #E6E6FF, #6F00FF);">
+
+    <!-- Header -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20"
+              style="-fx-padding: 15; -fx-background-color: #6F00FF;">
+            <Label text="📜 Lịch sử đấu"
+                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Quay lại" onAction="#onBack"
+                    style="-fx-background-color: #FF69B4; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 5 15;"/>
+        </HBox>
+    </top>
+
+    <!-- Content -->
+    <center>
+        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;">
+            <TableView fx:id="tblHistory" prefHeight="400" prefWidth="750"
+                       style="-fx-background-radius: 12; -fx-border-color: #6F00FF;
+                              -fx-border-radius: 12; -fx-border-width: 2; -fx-table-cell-border-color: transparent;">
+                <columns>
+                    <TableColumn fx:id="colMatchId" text="Mã trận" prefWidth="100"/>
+                    <TableColumn fx:id="colOpponent" text="Đối thủ" prefWidth="200"/>
+                    <TableColumn fx:id="colResult" text="Kết quả" prefWidth="120"/>
+                    <TableColumn fx:id="colScoreChange" text="Điểm +/-" prefWidth="120"/>
+                    <TableColumn fx:id="colTime" text="Thời gian" prefWidth="210"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>

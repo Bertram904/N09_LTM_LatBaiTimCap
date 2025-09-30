@@ -5,21 +5,23 @@
 package entity;
 
 import java.io.Serializable;
+import constant.MessageType;
 
 /**
  *
  * @author ngotu
  */
 public class Message implements Serializable {
-    private String type;
+    private MessageType type;
     private Object content;
 
-    public Message(String type, Object content) {
+    public Message(MessageType type, Object content) {
         this.type = type;
         this.content = content;
     }
 
-    public String getType() {
+    // Getters
+    public MessageType getType() {
         return type;
     }
 

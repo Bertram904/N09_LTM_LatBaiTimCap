@@ -7,6 +7,7 @@ package server.DAO;
 
 import entity.Player;
 import java.sql.*;
+import java.util.*;
 
 /**
  *
@@ -16,7 +17,7 @@ public class DAO {
 
     private static final String URL_JDBC = "jdbc:mysql://localhost:3306/latbai_db";
     private static final String URL_USER = "root";
-    private static final String URL_PASS = "12345";
+    private static final String URL_PASS = "Anh2210anh";
     
     private static Connection conn;
 
@@ -33,24 +34,25 @@ public class DAO {
         conn = DriverManager.getConnection(URL_JDBC, URL_USER, URL_PASS);
     }
 
-    public static Player getPlayer(String username) throws SQLException {
-        String sql = "SELECT * FROM tblPlayer WHERE USERNAME = ?";
-        Player player = new Player();
-        PreparedStatement stm = conn.prepareStatement(sql);
-        stm.setString(1, username);
-        ResultSet rs = stm.executeQuery();
-        if (rs.next()) {
-            player = new Player();
-            player.setUsername(rs.getString("username"));
-        }
-        return player; 
-    }
+//    public Player getPlayer() throws SQLException {
+//        String sql = "SELECT * FROM tblplayer WHERE USERNAME = ?";
+//        Player player = new Player();
+//        PreparedStatement stm = conn.prepareStatement(sql);
+//        stm.setString(1, "");
+//        ResultSet rs = stm.executeQuery();
+//        if (rs.next()) {
+//            player = new Player();
+//            player.setUsername(rs.getString("username"));
+//        }
+//        return player; 
+//    }
     
+
     public static void main(String[] args) throws SQLException {
         DAO db = new DAO();
         try {
             System.out.println("Ket noi db thanh cong");
-            System.out.println(db.getPlayer("kienpt").getUsername());
+            //System.out.println(db.getPlayer("kienpt").getUsername());
         } catch (Exception e) {
             e.printStackTrace();
         }

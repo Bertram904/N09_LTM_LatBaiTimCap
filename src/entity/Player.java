@@ -9,10 +9,23 @@ package entity;
  * @author ngotu
  */
 public class Player {
+    private int id;
     private String username;
     private String password;
     private int totalScore;
     private Boolean isOnline;
+
+    public Player(int id, String username, String password, int totalScore, Boolean isOnline) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.totalScore = totalScore;
+        this.isOnline = isOnline;
+    }
+
+    public Player(int id) {
+        this.id = id;
+    }
 
     public Player(String username, String password, int totalScore, Boolean isOnline) {
         this.username = username;
@@ -22,6 +35,14 @@ public class Player {
     }
 
     public Player() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

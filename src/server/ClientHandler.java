@@ -1,5 +1,6 @@
 package server;
 
+import constants.MessageType;
 import entity.Message;
 import entity.Player;
 
@@ -13,7 +14,7 @@ import server.DAO.DAO;
 public class ClientHandler implements Runnable {
 
     private Socket socket;
-    private ServerRun server;
+    private GameServer server;
     private DAO dbManager;
     private ObjectInputStream in;
     private ObjectOutputStream out;
@@ -21,7 +22,7 @@ public class ClientHandler implements Runnable {
     private GameRoom gameRoom;
     private volatile boolean isRunning = true;
 
-    public ClientHandler(Socket socket, ServerRun server, DAO dbManager) {
+    public ClientHandler(Socket socket, GameServer server, DAO dbManager) {
         this.socket = socket;
         this.server = server;
         this.dbManager = dbManager;
@@ -61,7 +62,7 @@ public class ClientHandler implements Runnable {
             try {
                 if (player != null) {
                     dbManager.updatePlayerStatus(player.getId(), false);
-                    server.broadcast(new Message("status_update", player.getUsername() + " đã offline."));
+                    server.broadcast(new Message(MessageType.STATUS_UPDATE, player.getUsername() + " đã offline."));
                     server.removeClient(this);
                 }
                 if (socket != null && !socket.isClosed()) {
@@ -75,14 +76,14 @@ public class ClientHandler implements Runnable {
 
     private void handleMessage(Message message) throws IOException, SQLException {
         switch (message.getType()) {
-            case "login":
+            case MessageType.LOGIN:
                 handleLogin(message);
                 break;
-            case "get_players":
+            case MessageType.GET_PLAYERS:
                 handleGetPlayers();
                 break;
 
-            case "logout":
+            case MessageType.LOGOUT:
                 handleLogout();
                 break;
         }
@@ -100,14 +101,14 @@ public class ClientHandler implements Runnable {
             this.player = _player;
             dbManager.updatePlayerStatus(player.getId(), true);
             player.setIsOnline(true);
-            sendMessage(new Message("login_success", player));
-            server.broadcast(new Message("status_update", player.getUsername() + " đã online."));
+            sendMessage(new Message(MessageType.LOGIN_SUCCESS, player));
+            server.broadcast(new Message(MessageType.STATUS_UPDATE, player.getUsername() + " đã online."));
             server.addClient(player.getId(), this);
 
         } else if (_player != null && isOffline == false) {
-            sendMessage(new Message("login_failure", "Tài khoản được đăng nhập ở nơi khác"));
+            sendMessage(new Message(MessageType.LOGIN_FAILURE, "Tài khoản được đăng nhập ở nơi khác"));
         } else {
-            sendMessage(new Message("login_failure", "Tài khoản hoặc mật khẩu không đúng"));
+            sendMessage(new Message(MessageType.LOGIN_FAILURE, "Tài khoản hoặc mật khẩu không đúng"));
         }
     }
 
@@ -115,9 +116,9 @@ public class ClientHandler implements Runnable {
         if (player != null) {
             dbManager.updatePlayerStatus(player.getId(), false);
             player.setIsOnline(false);
-            server.broadcast(new Message("status_update", player.getUsername() + " đã offline."));
+            server.broadcast(new Message(MessageType.STATUS_UPDATE, player.getUsername() + " đã offline."));
             if (socket != null && !socket.isClosed()) {
-                sendMessage(new Message("logout_success", "Đăng xuất thành công."));
+                sendMessage(new Message(MessageType.LOGOUT_SUCCESS, "Đăng xuất thành công."));
             }
             isRunning = false;
             server.removeClient(this);
@@ -127,7 +128,7 @@ public class ClientHandler implements Runnable {
 
     private void handleGetPlayers() throws IOException, SQLException {
         List<Player> players = dbManager.getPlayers();
-        sendMessage(new Message("player_list", player));
+        sendMessage(new Message(MessageType.PLAYER_LIST, player));
     }
 
     public void sendMessage(Message message) {
@@ -150,7 +151,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public ServerRun getServer() {
+    public GameServer getServer() {
         return server;
     }
 

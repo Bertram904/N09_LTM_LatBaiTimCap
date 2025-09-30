@@ -3,16 +3,10 @@ package client;
 import javafx.application.Application;
 import javafx.stage.*;
 
+public class ClientRunApp extends Application {
 
-public class ClientRunApp extends Application {   
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Client client = new Client(primaryStage);
-        client.showMainUI();
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-    
 }

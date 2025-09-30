@@ -3,13 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package server.DAO;
+import entity.Match;
+import java.util.*;
+
+
+import java.io.IOException;
 
 /**
  *
  * @author ngotu
  */
 public class MatchDAO {
-    public static void main(String[] args) {
-        
-    }
+
+    
 }

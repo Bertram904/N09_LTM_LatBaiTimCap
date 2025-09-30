@@ -6,7 +6,20 @@ import javafx.stage.*;
 public class ClientRunApp extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void start(Stage primaryStage) {
+        Client client = new Client(primaryStage);
+
+        try {
+            client.connect("26.207.177.68", 23456);
+            client.showLoginUI();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể kết nối đến server!");
+        }
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }

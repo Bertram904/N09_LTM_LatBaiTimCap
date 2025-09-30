@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author ngotu
  */
 public class Player implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     private int id;
     private String username;
     private String password;
@@ -31,7 +31,6 @@ public class Player implements Serializable {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -39,7 +38,7 @@ public class Player implements Serializable {
     public String getUsername() {
         return username;
     }
-
+    
     public void setUsername(String username) {
         this.username = username;
     }
@@ -52,7 +51,7 @@ public class Player implements Serializable {
         this.password = password;
     }
 
-    public boolean isIsOnline() {
+    public boolean getIsOnline() {
         return isOnline;
     }
 

@@ -2,6 +2,7 @@ package client;
 
 import client.controller.LoginController;
 import client.controller.MainController;
+import constants.MessageType;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
@@ -56,15 +57,17 @@ public class Client {
                 while (true) {
                     Message msg = (Message) in.readObject();
                     switch (msg.getType()) {
-                        case "login_success":
+                        case MessageType.LOGIN_SUCCESS:
                             Player player = (Player) msg.getContent();
                             System.out.println("Login OK: " + player.getUsername());
                             Platform.runLater(() -> showMainUI());
                             break;
-                        case "login_failure":
+                        case MessageType.LOGIN_FAILURE:
                             String err = (String) msg.getContent();
                             System.out.println("Login fail: " + err);
                             break;
+                        case MessageType.GET_PLAYERS:
+                            
                     }
                 }
             } catch (Exception e) {

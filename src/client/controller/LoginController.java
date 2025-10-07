@@ -1,6 +1,7 @@
 package client.controller;
 
 import client.Client;
+import constants.MessageType;
 import entity.Message;
 import javafx.fxml.FXML;
 
@@ -48,7 +49,7 @@ public class LoginController {
             return;
         }
         try {
-            app.sendMessage(new Message("login", new String[]{user, pass}));
+            app.sendMessage(new Message(MessageType.LOGIN, new String[]{user, pass}));
             if (statusLabel != null) {
                 statusLabel.setText("Đã gửi yêu cầu đăng nhập...");
             }

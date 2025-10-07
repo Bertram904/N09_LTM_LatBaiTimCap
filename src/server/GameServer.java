@@ -8,12 +8,13 @@ import java.sql.SQLException;
 import java.util.concurrent.ConcurrentHashMap;
 
 import server.DAO.DAO;
+import server.DAO.PlayerDAO;
 
 public class GameServer {
 
     private final int port;
     private ServerSocket serverSocket;
-    private DAO dbManager;
+    private PlayerDAO playerDAO;
     private final ConcurrentHashMap<Integer, ClientHandler> clientMap;
 
     public GameServer(int port) {
@@ -24,7 +25,7 @@ public class GameServer {
     public void start() {
         try {
             serverSocket = new ServerSocket(port);
-            dbManager = new DAO();
+            playerDAO = new PlayerDAO();
             System.out.println("Game server started on port: " + port);
 
             listenForClients();
@@ -39,7 +40,7 @@ public class GameServer {
                 Socket socket = serverSocket.accept();
                 System.out.println("Client connected: " + socket.getInetAddress());
 
-                ClientHandler clientHandler = new ClientHandler(socket, this, dbManager);
+                ClientHandler clientHandler = new ClientHandler(socket, this, playerDAO);
                 new Thread(clientHandler).start();
             } catch (IOException e) {
                 e.printStackTrace();

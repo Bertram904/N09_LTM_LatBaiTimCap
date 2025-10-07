@@ -9,23 +9,23 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.util.Pair;
-import server.DAO.DAO;
+import server.DAO.PlayerDAO;
 
 public class ClientHandler implements Runnable {
 
     private Socket socket;
     private GameServer server;
-    private DAO dbManager;
+    private PlayerDAO playerDAO;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Player player;
     private GameRoom gameRoom;
     private volatile boolean isRunning = true;
 
-    public ClientHandler(Socket socket, GameServer server, DAO dbManager) {
+    public ClientHandler(Socket socket, GameServer server, PlayerDAO playerDAO) {
         this.socket = socket;
         this.server = server;
-        this.dbManager = dbManager;
+        this.playerDAO = playerDAO;
         try {
             out = new ObjectOutputStream(socket.getOutputStream());
             out.flush();
@@ -61,7 +61,7 @@ public class ClientHandler implements Runnable {
         } finally {
             try {
                 if (player != null) {
-                    dbManager.updatePlayerStatus(player.getId(), false);
+                    playerDAO.updatePlayerStatus(player.getId(), false);
                     server.broadcast(new Message(MessageType.STATUS_UPDATE, player.getUsername() + " đã offline."));
                     server.removeClient(this);
                 }
@@ -82,7 +82,6 @@ public class ClientHandler implements Runnable {
             case MessageType.GET_PLAYERS:
                 handleGetPlayers();
                 break;
-
             case MessageType.LOGOUT:
                 handleLogout();
                 break;
@@ -94,12 +93,12 @@ public class ClientHandler implements Runnable {
         String[] credentials = (String[]) message.getContent();
         String username = credentials[0];
         String password = credentials[1];
-        Pair<Player, Boolean> pairAuthnticatedUser = dbManager.authenticate(username, password);
+        Pair<Player, Boolean> pairAuthnticatedUser = playerDAO.authenticate(username, password);
         Player _player = pairAuthnticatedUser.getKey();
         Boolean isOffline = pairAuthnticatedUser.getValue();
         if (_player != null && isOffline == true) {
             this.player = _player;
-            dbManager.updatePlayerStatus(player.getId(), true);
+            playerDAO.updatePlayerStatus(player.getId(), true);
             player.setIsOnline(true);
             sendMessage(new Message(MessageType.LOGIN_SUCCESS, player));
             server.broadcast(new Message(MessageType.STATUS_UPDATE, player.getUsername() + " đã online."));
@@ -114,7 +113,7 @@ public class ClientHandler implements Runnable {
 
     private void handleLogout() throws IOException, SQLException {
         if (player != null) {
-            dbManager.updatePlayerStatus(player.getId(), false);
+            playerDAO.updatePlayerStatus(player.getId(), false);
             player.setIsOnline(false);
             server.broadcast(new Message(MessageType.STATUS_UPDATE, player.getUsername() + " đã offline."));
             if (socket != null && !socket.isClosed()) {
@@ -127,8 +126,8 @@ public class ClientHandler implements Runnable {
     }
 
     private void handleGetPlayers() throws IOException, SQLException {
-        List<Player> players = dbManager.getPlayers();
-        sendMessage(new Message(MessageType.PLAYER_LIST, player));
+        List<Player> players = playerDAO.getAllPlayers();
+        sendMessage(new Message(MessageType.GET_PLAYERS, player));
     }
 
     public void sendMessage(Message message) {

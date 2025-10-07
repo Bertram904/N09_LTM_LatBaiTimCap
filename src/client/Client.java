@@ -17,7 +17,6 @@ import javafx.application.Platform;
  * @author ngotu
  */
 public class Client {
-
     private final Stage primaryStage;
     private Socket socket;
     private ObjectInputStream in;

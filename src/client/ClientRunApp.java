@@ -10,7 +10,7 @@ public class ClientRunApp extends Application {
         Client client = new Client(primaryStage);
 
         try {
-            client.connect("localhost", 23456);
+            client.connect("26.207.177.68", 23456);
             client.showLoginUI();
         } catch (Exception e) {
             e.printStackTrace();
